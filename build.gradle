@@ -1,0 +1,56 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+// same output dir for both resource and test 
+// https://deltaspike.apache.org/documentation/test-control.html#_gradle
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
+    }
+    test {
+        output.resourcesDir = output.classesDir
+    }
+}
+// same output dir for both resource and test 
+// https://deltaspike.apache.org/documentation/test-control.html#_gradle
+jar {
+    duplicatesStrategy = 'exclude'
+}
+
+dependencies {
+	// log4j-slf4j
+	compile "org.apache.logging.log4j:log4j-slf4j-impl:2.11.1"
+	
+	// deltaspike support
+	ext.deltaspikeVersion = "1.9.0"
+	// core
+	compile "org.apache.deltaspike.core:deltaspike-core-api:$deltaspikeVersion"
+	compile "org.apache.deltaspike.core:deltaspike-core-impl:$deltaspikeVersion"
+ 	// test control
+	compile "org.apache.deltaspike.modules:deltaspike-test-control-module-api:$deltaspikeVersion"
+	testCompile "org.apache.deltaspike.modules:deltaspike-test-control-module-impl:$deltaspikeVersion"
+
+	// cdi control	
+	compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:$deltaspikeVersion"
+	// weld
+//	compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:$deltaspikeVersion"
+//	compile "org.jboss.weld.se:weld-se:2.4.8.Final"
+
+	// deltaspike + openejb (tomee) 
+	compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-openejb:$deltaspikeVersion"
+	compile "org.apache.tomee:tomee:7.1.0"
+	
+	// openjpa
+	compile "org.apache.openjpa:openjpa:2.4.3"
+	// H2
+	compile "com.h2database:h2:1.4.197"	
+	
+	// mockito 
+	testCompile "org.mockito:mockito-core:2.23.4"
+
+	// junit implementation 
+	testImplementation "junit:junit:4.12"
+}
