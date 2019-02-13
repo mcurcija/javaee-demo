@@ -7,6 +7,8 @@ import javax.interceptor.Interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.javeedemo.logic.Engine;
+
 @Alternative
 @Priority(Interceptor.Priority.APPLICATION)
 public class TransWarpEngine implements Engine {
